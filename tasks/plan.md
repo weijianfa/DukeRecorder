@@ -60,7 +60,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Files: src/encode/color_convert.h, src/encode/color_convert.cpp,
     tests/test_color_convert.cpp (+ tmp stub)
 
-- [ ] **T7. Pipeline orchestration (CaptureLoop + EncodeLoop) [STUB]**
+- [x] **T7. Pipeline orchestration (CaptureLoop + EncodeLoop) [STUB]**
   - Acceptance: wires CaptureEngine → FrameBuffer → Encoder → RawEsSink on two
     threads; bounded (producer yields, never grows); clean Stop joins threads;
     SIGINT triggers clean shutdown.

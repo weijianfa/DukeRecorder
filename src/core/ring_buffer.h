@@ -112,6 +112,19 @@ class FrameBuffer {
     return &slot;
   }
 
+  // Non-blocking acquire; returns nullptr if the slot at the producer cursor
+  // is still occupied (buffer full). Used by real-time capture to apply
+  // backpressure (drop a frame) rather than block, which would deadlock Stop()
+  // if the encode loop has stopped draining.
+  Slot* TryAcquireWriteSlot() {
+    const size_t tail = tail_.load(std::memory_order_relaxed);
+    Slot& slot = slots_[tail % slots_.size()];
+    if (slot.ready.load(std::memory_order_acquire)) {
+      return nullptr;
+    }
+    return &slot;
+  }
+
   void CommitWrite(Slot* /*slot*/) {
     // slot is the one at the current tail cursor; mark then advance.
     slots_[tail_.load(std::memory_order_relaxed) % slots_.size()]
