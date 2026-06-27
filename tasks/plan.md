@@ -47,7 +47,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Files: src/encode/encoder.h, src/encode/x264_encoder.h,
     src/encode/x264_encoder.cpp, tests/test_x264_encoder.cpp (+ tmp stub)
 
-- [ ] **T5. DXGI capture backend [CI]**
+- [x] **T5. DXGI capture backend [CI]**
   - Acceptance: DxgiCaptureEngine implements CaptureEngine; AcquireNextFrame →
     map BGRA texture → callback; basic ComposeCursor overlay (alpha simplified);
     GetEncoderParams reports actual output w/h/fps; Stop logs frame count.
