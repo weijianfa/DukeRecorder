@@ -38,7 +38,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Files: src/capture/capture_engine.h (interface), src/capture/test_capture.h,
     src/capture/test_capture.cpp, tests/test_test_capture.cpp
 
-- [ ] **T4. Encoder interface + x264 wrapper [STUB]**
+- [x] **T4. Encoder interface + x264 wrapper [STUB]**
   - Acceptance: abstract Encoder; x264_encoder sets params from RecorderConfig
     (keyint = gop_seconds*fps, bitrate, fps), feeds NV12, emits AVCC NALs to a
     sink, handles init failure (logs + returns false, no crash).
