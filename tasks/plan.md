@@ -68,7 +68,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
     assert frame count. Verify (CI): real x264.
   - Files: src/recorder.h, src/recorder.cpp, tests/test_recorder.cpp
 
-- [ ] **T8. main.cpp CLI wiring [LOCAL+CI]**
+- [x] **T8. main.cpp CLI wiring [LOCAL+CI]**
   - Acceptance: parse --record/--duration/--out/--fps/--bitrate; --version/--help
     retained; --duration 0 = until SIGINT; constructs Recorder, runs, exits 0.
   - Verify (local): arg-parsing unit test (no deps). Verify (CI): real run.
