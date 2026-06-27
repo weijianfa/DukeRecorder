@@ -30,7 +30,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Files: src/mux/raw_es_sink.h, src/mux/raw_es_sink.cpp,
     tests/test_raw_es_sink.cpp
 
-- [ ] **T3. TestCaptureEngine synthetic source [LOCAL]**
+- [x] **T3. TestCaptureEngine synthetic source [LOCAL]**
   - Acceptance: implements CaptureEngine; emits N frames at a set fps as BGRA
     with a moving test pattern; Stop() halts cleanly; honors duration.
   - Verify: `g++ ... tests/test_test_capture.cpp` — run 30 frames @ 30fps,
