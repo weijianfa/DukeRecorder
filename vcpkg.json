@@ -4,13 +4,11 @@
   "version": "1.0.0",
   "description": "Enterprise-grade cross-platform desktop screen recording engine",
   "dependencies": [
-    "spdlog"
+    "spdlog",
+    "x264",
+    "libyuv"
   ],
   "features": {
-    "encoding": {
-      "description": "Software encoding pipeline (P2)",
-      "dependencies": ["x264", "libyuv"]
-    },
     "control": {
       "description": "Protobuf control protocol (P3+)",
       "dependencies": ["protobuf"]

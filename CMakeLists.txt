@@ -25,17 +25,43 @@ include(platform)
 include(dependencies)
 include(google_style)
 
-# Core is header-only in P1 (platform/config/frame/ring_buffer). Expose as an
-# INTERFACE library so downstream targets pick up include paths and deps.
+# Core is header-only (platform/config/frame/ring_buffer).
 add_library(duke_core INTERFACE)
 target_include_directories(duke_core INTERFACE
-    "${CMAKE_CURRENT_SOURCE_DIR}/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    "${CMAKE_CURRENT_SOURCE_DIR}/src")
 target_link_libraries(duke_core INTERFACE spdlog::spdlog)
 
-# Main executable. P1: parse config, print version, exit cleanly.
-add_executable(duke_recorder src/main.cpp)
-target_link_libraries(duke_recorder PRIVATE duke_core)
+# Encode: Annex-B writer (portable) + libyuv color convert + x264 encoder.
+add_library(duke_encode STATIC
+    src/encode/annexb_writer.cpp
+    src/encode/color_convert.cpp
+    src/encode/x264_encoder.cpp)
+target_include_directories(duke_encode PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_link_libraries(duke_encode
+    PUBLIC duke_core
+    PRIVATE ${DUKE_X264_TARGET} ${DUKE_LIBYUV_TARGET})
+
+# Capture: abstract interface + TestCaptureEngine (portable) + DXGI (Windows).
+add_library(duke_capture STATIC
+    src/capture/test_capture.cpp
+    src/capture/dxgi_capture.cpp)
+target_include_directories(duke_capture PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_link_libraries(duke_capture PUBLIC duke_core)
+if(WIN32)
+    target_link_libraries(duke_capture PUBLIC ${DUKE_PLATFORM_LIBS})
+endif()
+
+# Mux: raw Annex-B ES file sink (stands in for the P4 fmp4_muxer).
+add_library(duke_mux STATIC src/mux/raw_es_sink.cpp)
+target_include_directories(duke_mux PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+target_link_libraries(duke_mux PUBLIC duke_core)
+
+# Main executable: CLI + Recorder orchestration + capture/encode/mux.
+add_executable(duke_recorder
+    src/main.cpp
+    src/cli.cpp
+    src/recorder.cpp)
+target_link_libraries(duke_recorder PRIVATE duke_capture duke_encode duke_mux duke_core)
 
 if(DUKE_BUILD_TESTS)
     enable_testing()

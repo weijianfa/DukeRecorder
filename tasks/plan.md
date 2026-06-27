@@ -74,7 +74,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Verify (local): arg-parsing unit test (no deps). Verify (CI): real run.
   - Files: src/main.cpp, tests/test_main_args.cpp
 
-- [ ] **T9. CMake + CI wiring [CI]**
+- [x] **T9. CMake + CI wiring [CI]**
   - Acceptance: add capture/encode/mux static libs to CMakeLists; link
     DUKE_PLATFORM_LIBS + x264 + libyuv; widen duke_tidy scope; register new test
     targets; refresh CI vcpkg pin; add ffprobe validation step.

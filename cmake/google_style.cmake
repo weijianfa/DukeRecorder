@@ -4,8 +4,9 @@
 #   duke_format_check  - clang-format --dry-run -Werror over the codebase
 #   duke_tidy          - clang-tidy with google-* checks over src/core/** (P1)
 #
-# clang-tidy is scoped to src/core in P1 to keep first-run cost low; downstream
-# phases widen the scope (see plan P1 risk notes).
+# clang-tidy is scoped to all of src (P2 widened from src/core). Platform-
+# guarded files (dxgi_capture) compile to empty TUs off-Windows, which tidy
+# handles without diagnostics.
 
 find_program(CLANG_FORMAT_BIN NAMES clang-format clang-format-17 clang-format-16)
 find_program(CLANG_TIDY_BIN NAMES clang-tidy clang-tidy-17 clang-tidy-16)
@@ -25,13 +26,13 @@ function(duke_add_style_targets source_dir)
 
     if(CLANG_TIDY_BIN)
         file(GLOB_RECURSE DUKE_TIDY_SOURCES
-            "${source_dir}/core/*.cpp" "${source_dir}/core/*.h")
+            "${source_dir}/*.cpp" "${source_dir}/*.h")
         add_custom_target(duke_tidy
             COMMAND ${CLANG_TIDY_BIN} -p ${CMAKE_BINARY_DIR}
                 --config-file=${CMAKE_SOURCE_DIR}/.clang-tidy
                 ${DUKE_TIDY_SOURCES}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            COMMENT "clang-tidy (google-* checks) over src/core")
+            COMMENT "clang-tidy (google-* checks) over src")
     else()
         message(STATUS "clang-tidy not found; duke_tidy disabled")
     endif()
