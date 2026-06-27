@@ -1,0 +1,23 @@
+# Build artifacts
+/build/
+/out/
+compile_commands.json
+
+# IDE / tooling
+.cache/
+.vscode/
+.idea/
+*.swp
+
+# vcpkg
+vcpkg_installed/
+
+# Node / Electron
+electron/node_modules/
+node_modules/
+dist/
+*.node
+
+# OS
+.DS_Store
+Thumbs.db

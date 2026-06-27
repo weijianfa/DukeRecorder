@@ -1,0 +1,4 @@
+# Google open-source style, line width 100 (locked here; do not diverge per-file).
+BasedOnStyle: Google
+ColumnLimit: 100
+DeriveLineEnding: false

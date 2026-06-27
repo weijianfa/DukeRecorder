@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "duke-recorder",
+  "version": "1.0.0",
+  "description": "Enterprise-grade cross-platform desktop screen recording engine",
+  "dependencies": [
+    "spdlog"
+  ],
+  "features": {
+    "encoding": {
+      "description": "Software encoding pipeline (P2)",
+      "dependencies": ["x264", "libyuv"]
+    },
+    "control": {
+      "description": "Protobuf control protocol (P3+)",
+      "dependencies": ["protobuf"]
+    }
+  }
+}

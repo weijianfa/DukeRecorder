@@ -1,0 +1,14 @@
+# Google-style plus a conservative set of bugprone/modernize/perf checks.
+# P1 scope: src/core/** only (see cmake/google_style.cmake).
+Checks: >
+  -*,
+  google-*,
+  bugprone-*,
+  modernize-*,
+  performance-*,
+  -modernize-use-trailing-return-type,
+  -google-readability-todo,
+  -bugprone-easily-swappable-parameters
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(src|include)/'
+FormatStyle: file

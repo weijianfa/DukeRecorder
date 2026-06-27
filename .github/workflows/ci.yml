@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  style:
+    name: Style & static checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang-format / clang-tidy
+        run: sudo apt-get update && sudo apt-get install -y clang-format clang-tidy
+      - name: clang-format check
+        run: find src include -name '*.cpp' -o -name '*.h' -o -name '*.mm' | xargs clang-format --dry-run -Werror
+      - name: clang-tidy (src/core)
+        run: |
+          sudo apt-get install -y cmake
+          cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          find src/core -name '*.cpp' -o -name '*.h' | xargs clang-tidy -p build --config-file=.clang-tidy
+
+  build-windows:
+    name: Build (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 2024-01-01
+      - name: Configure & build
+        run: |
+          cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
+          cmake --build build --config Release
+      - name: Smoke test
+        run: ./build/Release/duke_recorder.exe --version
+
+  build-macos:
+    name: Build (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 2024-01-01
+      - name: Configure & build
+        run: |
+          cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake
+          cmake --build build
+      - name: Smoke test
+        run: ./build/duke_recorder --version
