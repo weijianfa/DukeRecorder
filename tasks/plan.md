@@ -22,7 +22,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Files: src/encode/annexb_writer.h, src/encode/annexb_writer.cpp,
     tests/test_annexb_writer.cpp
 
-- [ ] **T2. Raw ES file sink [LOCAL]**
+- [x] **T2. Raw ES file sink [LOCAL]**
   - Acceptance: appends Annex-B NALs to output_path; opens/creates/truncates
     correctly; flushes on close; no unbounded buffering (bounded internal buffer).
   - Verify: `g++ ... tests/test_raw_es_sink.cpp` — write known NALs, read back
