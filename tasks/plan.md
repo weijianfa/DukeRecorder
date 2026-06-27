@@ -54,7 +54,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
   - Verify: CI Windows build + manual end-to-end run. NOT locally buildable.
   - Files: src/capture/dxgi_capture.h, src/capture/dxgi_capture.cpp
 
-- [ ] **T6. BGRA→NV12 conversion [STUB]**
+- [x] **T6. BGRA→NV12 conversion [STUB]**
   - Acceptance: thin libyuv wrapper (ARGBToNV12); fallback path documented.
   - Verify (local, stub libyuv): wrapper dispatch test. Verify (CI): real libyuv.
   - Files: src/encode/color_convert.h, src/encode/color_convert.cpp,
