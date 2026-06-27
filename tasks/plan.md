@@ -15,7 +15,7 @@ Annex-B ES output; refresh CI vcpkg pin; standalone CHECK tests (no gtest);
 
 ## Tasks (dependency order)
 
-- [ ] **T1. Annex-B NAL writer [LOCAL]**
+- [x] **T1. Annex-B NAL writer [LOCAL]**
   - Acceptance: converts length-prefixed (AVCC) NALs → Annex-B (start codes),
     inserts AUD before each access unit, pure C++ no deps.
   - Verify: `g++ ... tests/test_annexb_writer.cpp` passes.
