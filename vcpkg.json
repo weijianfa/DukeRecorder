@@ -6,7 +6,8 @@
   "dependencies": [
     "spdlog",
     "x264",
-    "libyuv"
+    "libyuv",
+    "pkgconf"
   ],
   "features": {
     "control": {

@@ -1,6 +1,6 @@
 #include "encode/color_convert.h"
 
-#include <libyuv.h>
+#include <libyuv/convert.h>
 
 namespace duke {
 

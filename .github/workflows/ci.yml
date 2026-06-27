@@ -23,9 +23,9 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
       - name: clang-format check
-        run: find src include tests -name '*.cpp' -o -name '*.h' -o -name '*.mm' | xargs clang-format --dry-run -Werror
+        run: find src tests \( -name '*.cpp' -o -name '*.h' -o -name '*.mm' \) | xargs clang-format --dry-run -Werror
       - name: clang-tidy (src)
-        run: find src -name '*.cpp' -o -name '*.h' | xargs clang-tidy -p build --config-file=.clang-tidy
+        run: find src \( -name '*.cpp' -o -name '*.h' \) | xargs clang-tidy -p build --config-file=.clang-tidy
 
   build-windows:
     name: Build (Windows)
